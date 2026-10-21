@@ -23,26 +23,29 @@ function getInputValues() {
   };
 }
 
+function displayResult(value) {
+  document.getElementById('result').textContent = value;
+}
+
 document.getElementById('btn-add').addEventListener('click', () => {
   const { a, b } = getInputValues();
 
-  document.getElementById('result').textContent = add(a, b);
+  displayResult(add(a, b));
 });
 
 document.getElementById('btn-subtract').addEventListener('click', () => {
   const { aValue, bValue, a, b } = getInputValues();
-  const result = document.getElementById('result');
 
   if (aValue.trim() === '' || bValue.trim() === '') {
-    result.textContent = 'Please enter both numbers.';
+    displayResult('Please enter both numbers.');
     return;
   }
 
-  result.textContent = subtract(a, b);
+  displayResult(subtract(a, b));
 });
 
 document.getElementById('btn-multiply').addEventListener('click', () => {
   const { a, b } = getInputValues();
 
-  document.getElementById('result').textContent = multiply(a, b);
+  displayResult(multiply(a, b));
 });
