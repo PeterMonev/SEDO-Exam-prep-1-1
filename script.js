@@ -11,16 +11,26 @@ function multiply(a, b) {
   return a * b;
 }
 
+function getInputValues() {
+  const aValue = document.getElementById('a').value;
+  const bValue = document.getElementById('b').value;
+
+  return {
+    aValue,
+    bValue,
+    a: Number(aValue),
+    b: Number(bValue)
+  };
+}
+
 document.getElementById('btn-add').addEventListener('click', () => {
-  const a = Number(document.getElementById('a').value);
-  const b = Number(document.getElementById('b').value);
+  const { a, b } = getInputValues();
 
   document.getElementById('result').textContent = add(a, b);
 });
 
 document.getElementById('btn-subtract').addEventListener('click', () => {
-  const aValue = document.getElementById('a').value;
-  const bValue = document.getElementById('b').value;
+  const { aValue, bValue, a, b } = getInputValues();
   const result = document.getElementById('result');
 
   if (aValue.trim() === '' || bValue.trim() === '') {
@@ -28,15 +38,11 @@ document.getElementById('btn-subtract').addEventListener('click', () => {
     return;
   }
 
-  const a = Number(aValue);
-  const b = Number(bValue);
-
   result.textContent = subtract(a, b);
 });
 
 document.getElementById('btn-multiply').addEventListener('click', () => {
-  const a = Number(document.getElementById('a').value);
-  const b = Number(document.getElementById('b').value);
+  const { a, b } = getInputValues();
 
   document.getElementById('result').textContent = multiply(a, b);
 });
