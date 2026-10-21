@@ -27,25 +27,29 @@ function displayResult(value) {
   document.getElementById('result').textContent = value;
 }
 
-document.getElementById('btn-add').addEventListener('click', () => {
-  const { a, b } = getInputValues();
-
-  displayResult(add(a, b));
-});
-
-document.getElementById('btn-subtract').addEventListener('click', () => {
+function handleOperation(operation, requireBothInputs = false) {
   const { aValue, bValue, a, b } = getInputValues();
 
-  if (aValue.trim() === '' || bValue.trim() === '') {
+  if (
+    requireBothInputs &&
+    (aValue.trim() === '' || bValue.trim() === '')
+  ) {
     displayResult('Please enter both numbers.');
     return;
   }
 
-  displayResult(subtract(a, b));
+  displayResult(operation(a, b));
+}
+
+document.getElementById('btn-add').addEventListener('click', () => {
+  handleOperation(add);
+});
+
+document.getElementById('btn-subtract').addEventListener('click', () => {
+  handleOperation(subtract, true);
 });
 
 document.getElementById('btn-multiply').addEventListener('click', () => {
-  const { a, b } = getInputValues();
-
-  displayResult(multiply(a, b));
+  handleOperation(multiply);
 });
+  
