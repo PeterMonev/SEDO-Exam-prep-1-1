@@ -11,32 +11,45 @@ function multiply(a, b) {
   return a * b;
 }
 
-document.getElementById('btn-add').addEventListener('click', () => {
-  const a = Number(document.getElementById('a').value);
-  const b = Number(document.getElementById('b').value);
-
-  document.getElementById('result').textContent = add(a, b);
-});
-
-document.getElementById('btn-subtract').addEventListener('click', () => {
+function getInputValues() {
   const aValue = document.getElementById('a').value;
   const bValue = document.getElementById('b').value;
-  const result = document.getElementById('result');
 
-  if (aValue.trim() === '' || bValue.trim() === '') {
-    result.textContent = 'Please enter both numbers.';
+  return {
+    aValue,
+    bValue,
+    a: Number(aValue),
+    b: Number(bValue)
+  };
+}
+
+function displayResult(value) {
+  document.getElementById('result').textContent = value;
+}
+
+function handleOperation(operation, requireBothInputs = false) {
+  const { aValue, bValue, a, b } = getInputValues();
+
+  if (
+    requireBothInputs &&
+    (aValue.trim() === '' || bValue.trim() === '')
+  ) {
+    displayResult('Please enter both numbers.');
     return;
   }
 
-  const a = Number(aValue);
-  const b = Number(bValue);
+  displayResult(operation(a, b));
+}
 
-  result.textContent = subtract(a, b);
+document.getElementById('btn-add').addEventListener('click', () => {
+  handleOperation(add);
+});
+
+document.getElementById('btn-subtract').addEventListener('click', () => {
+  handleOperation(subtract, true);
 });
 
 document.getElementById('btn-multiply').addEventListener('click', () => {
-  const a = Number(document.getElementById('a').value);
-  const b = Number(document.getElementById('b').value);
-
-  document.getElementById('result').textContent = multiply(a, b);
+  handleOperation(multiply);
 });
+  
